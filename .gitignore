@@ -1,0 +1,8 @@
+# ignore node_modules
+node_modules/
+
+# ignore all uploaded audio files
+uploads/songs/*
+
+# but keep this placeholder file so the folder exists
+!uploads/songs/.gitkeep
