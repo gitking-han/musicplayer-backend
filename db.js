@@ -1,6 +1,6 @@
 // db.js
 const mongoose = require('mongoose');
-require('dotenv').config();
+
 
 const connectToMongo = async () => {
   try {
