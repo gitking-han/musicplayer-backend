@@ -7,24 +7,17 @@ connectToMongo();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS configuration
-const corsOptions = {
-  origin: "https://musicplayer-frontend-ten.vercel.app", // your frontend URL
+// CORS
+app.use(cors({
+  origin: "https://musicplayer-frontend-ten.vercel.app",
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // needed if you send cookies or auth headers
-};
-
-// Apply CORS middleware
-app.use(cors(corsOptions));
-
-// Handle preflight requests for all routes
-app.options("*", cors(corsOptions));
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+app.options("*", cors());
 
 // Middleware
 app.use(express.json());
-
-// Serve uploaded files statically
 app.use("/uploads", express.static("uploads"));
 
 // Routes
@@ -36,5 +29,5 @@ app.use("/api/user", require("./routes/user"));
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🎵 Music App backend running at http://localhost:${PORT}`);
+  console.log(`🎵 Backend running on port ${PORT}`);
 });
