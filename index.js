@@ -31,11 +31,11 @@ app.use("/uploads", express.static("uploads"));
 
 // ---------- Routes ----------
 // Use relative paths only — do NOT use full URLs or unsafe env vars
-app.use("/api/auth", require("./routes/auth"));
-app.use("/api/songs", require("./routes/songs"));
-app.use("/api/albums", require("./routes/albums"));
-app.use("/api/playlists", require("./routes/playlists"));
-app.use("/api/user", require("./routes/user"));
+// app.use("/api/auth", require("./routes/auth"));
+// app.use("/api/songs", require("./routes/songs"));
+// app.use("/api/albums", require("./routes/albums"));
+// app.use("/api/playlists", require("./routes/playlists"));
+// app.use("/api/user", require("./routes/user"));
 
 // ---------- Start Server ----------
 app.listen(PORT, () => {
