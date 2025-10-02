@@ -10,7 +10,10 @@ connectToMongo();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ---------- CORS Configuration ----------
+// ---------- Safe API Base ----------
+const apiBase = process.env.BASE_URL?.startsWith("/") ? process.env.BASE_URL : "";
+
+// ---------- CORS ----------
 const FRONTEND_URL = "https://musicplayer-frontend-ten.vercel.app";
 
 app.use(cors({
@@ -20,22 +23,22 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Handle preflight requests
+// Handle preflight requests globally
 app.options("*", cors());
 
 // ---------- Middleware ----------
 app.use(express.json());
 
-// Serve uploads folder
+// Serve uploaded files statically
 app.use("/uploads", express.static("uploads"));
 
 // ---------- Routes ----------
-// Use relative paths only — do NOT use full URLs or unsafe env vars
-// app.use("/api/auth", require("./routes/auth"));
-// app.use("/api/songs", require("./routes/songs"));
-// app.use("/api/albums", require("./routes/albums"));
-// app.use("/api/playlists", require("./routes/playlists"));
-// app.use("/api/user", require("./routes/user"));
+// Use apiBase safely for all route mounts
+app.use(apiBase + "/api/auth", require("./routes/auth"));
+app.use(apiBase + "/api/songs", require("./routes/songs"));
+app.use(apiBase + "/api/albums", require("./routes/albums"));
+app.use(apiBase + "/api/playlists", require("./routes/playlists"));
+app.use(apiBase + "/api/user", require("./routes/user"));
 
 // ---------- Start Server ----------
 app.listen(PORT, () => {
